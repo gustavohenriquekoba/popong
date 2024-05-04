@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwe08en4jngyv"]
+
+[ext_resource type="Script" path="res://scripts/paddle_player_2.gd" id="1_1ks50"]
+[ext_resource type="Texture2D" uid="uid://1fgkxn0duj7q" path="res://assets/arts/paddles.png" id="2_onu7l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m88nf"]
+atlas = ExtResource("2_onu7l")
+region = Rect2(48, 0, 16, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnw1s"]
+size = Vector2(67, 343)
+
+[node name="Paddle_Player2" type="CharacterBody2D"]
+script = ExtResource("1_1ks50")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(64, 384)
+scale = Vector2(4.1875, 5.33333)
+texture = SubResource("AtlasTexture_m88nf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 383.5)
+shape = SubResource("RectangleShape2D_cnw1s")

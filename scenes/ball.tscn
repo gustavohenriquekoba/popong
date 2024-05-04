@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddqrdhchokdwc"]
+
+[ext_resource type="Script" path="res://scripts/Ball.gd" id="1_2lwop"]
+[ext_resource type="PackedScene" uid="uid://c70c3lx35mrqj" path="res://scenes/random_ball_sprite.tscn" id="2_0x346"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vl4kf"]
+radius = 37.054
+
+[node name="Ball" type="CharacterBody2D" groups=["BallGroup"]]
+script = ExtResource("1_2lwop")
+
+[node name="RandomBallSprite" parent="." instance=ExtResource("2_0x346")]
+scale = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vl4kf")

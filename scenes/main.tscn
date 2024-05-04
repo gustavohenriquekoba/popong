@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6i8xqclh45ex"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_3hh7h"]
+[ext_resource type="PackedScene" uid="uid://g36ukk3wrxbf" path="res://scenes/paddle_player.tscn" id="2_6ndjc"]
+[ext_resource type="Texture2D" uid="uid://chqe14laiv1fq" path="res://assets/arts/background.png" id="2_olpre"]
+[ext_resource type="PackedScene" uid="uid://ddqrdhchokdwc" path="res://scenes/ball.tscn" id="3_3x2d0"]
+[ext_resource type="PackedScene" uid="uid://bwe08en4jngyv" path="res://scenes/paddle_player_2.tscn" id="5_drgqb"]
+[ext_resource type="FontFile" uid="uid://ycgh64t0fl33" path="res://assets/04B_30__.TTF" id="5_r5frv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b1xc"]
+size = Vector2(1472, 59.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xx3q8"]
+size = Vector2(61, 720)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_3hh7h")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_olpre")
+stretch_mode = 1
+
+[node name="TopBorder" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBorder"]
+position = Vector2(672, -30)
+shape = SubResource("RectangleShape2D_0b1xc")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="BottomBorder" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder"]
+position = Vector2(670, 750)
+shape = SubResource("RectangleShape2D_0b1xc")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="Ball" parent="." instance=ExtResource("3_3x2d0")]
+position = Vector2(640, 384)
+
+[node name="Paddle_Player" parent="." instance=ExtResource("2_6ndjc")]
+
+[node name="Paddle_Player2" parent="." instance=ExtResource("5_drgqb")]
+position = Vector2(1184, 0)
+
+[node name="GoalP1" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalP1"]
+position = Vector2(-30.5, 360.5)
+shape = SubResource("RectangleShape2D_xx3q8")
+debug_color = Color(0, 0, 1, 0.419608)
+
+[node name="GoalP2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalP2"]
+position = Vector2(1376, 360)
+shape = SubResource("RectangleShape2D_xx3q8")
+debug_color = Color(0, 0, 1, 0.419608)
+
+[node name="P1Score" type="Label" parent="."]
+offset_left = 52.0
+offset_right = 148.0
+offset_bottom = 51.0
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("5_r5frv")
+theme_override_font_sizes/font_size = 51
+text = "0"
+
+[node name="P2Score" type="Label" parent="."]
+offset_left = 1164.0
+offset_right = 1260.0
+offset_bottom = 51.0
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("5_r5frv")
+theme_override_font_sizes/font_size = 51
+text = "0"
+
+[node name="CounterTimerLabel" type="Label" parent="."]
+visible = false
+offset_left = 608.0
+offset_right = 704.0
+offset_bottom = 51.0
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("5_r5frv")
+theme_override_font_sizes/font_size = 51
+text = "0"
+
+[node name="CounterTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="GoalP1" to="." method="_on_goal_p_1_body_entered"]
+[connection signal="body_entered" from="GoalP2" to="." method="_on_goal_p_2_body_entered"]
+[connection signal="timeout" from="CounterTimer" to="." method="_on_counter_timer_timeout"]
